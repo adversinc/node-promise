@@ -441,7 +441,7 @@ function composeAll(fail_on_error) {
 
 		function cancel( except ) {
 			array.forEach( function(p,i) {
-				if( i !== except && p.then && p.cancel )	
+				if( i !== except && p && p.then && p.cancel )	
 					p.cancel();
 			} );
 		}
