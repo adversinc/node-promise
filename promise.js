@@ -245,11 +245,13 @@ function Deferred(canceller){
   
   if(canceller){
     this.cancel = promise.cancel = function(){
-      var error = canceller();
-      if(!(error instanceof Error)){
-        error = new Error(error);
-      }
-      reject(error);
+	  if( !finished ) {
+		  var error = canceller();
+		  if(!(error instanceof Error)){
+		    error = new Error(error);
+		  }
+		  reject(error);
+	  }
     }
   }
   freeze(promise);
@@ -430,9 +432,9 @@ function composeAll(fail_on_error) {
 
 				function failOnce( err ) {
 					if( once ) {
+						once = false;
 						cancel( i );
 						deferred.reject( err );
-						once = false;
 					}
 				}
 			} );
