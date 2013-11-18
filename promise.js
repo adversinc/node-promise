@@ -442,7 +442,7 @@ function composeAll(fail_on_error) {
 		return deferred.promise;
 
 		function cancel( except ) {
-			once = true;
+			once = false;
 			array.forEach( function(p,i) {
 				if( i !== except && p && p.then && p.cancel )	
 					p.cancel();
