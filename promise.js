@@ -1,4 +1,3 @@
-
 // Kris Zyp
 // Updates/added features by ...Max... (Max Motovilov)
 
@@ -50,8 +49,14 @@ catch(e){
   // squelch the error, and only complain if the queue is needed
 }
 if(!enqueue){
-  enqueue = (typeof process !== "undefined" && process.nextTick) || function(func){
-    func();
+  if (typeof setImmediate == "function"){
+    enqueue = setImmediate;
+  } else if (typeof process !== "undefined" && typeof process.nextTick == "function") {
+    enqueue = process.nextTick;
+  } else {
+    enqueue = function(func){
+      func();
+    }
   }
 }  
 // commented out due to: http://code.google.com/p/v8/issues/detail?id=851
