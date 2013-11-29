@@ -217,7 +217,8 @@ function Deferred(canceller){
   }
   // provide the implementation of the promise
   this.then = promise.then = function(resolvedCallback, errorCallback, progressCallback){
-    var returnDeferred = new Deferred(promise.cancel);
+    var returnDeferred = new Deferred();
+	if( promise.cancel ) returnDeferred.cancel = returnDeferred.promise.cancel = promise.cancel;
     var listener = {resolved: resolvedCallback, error: errorCallback, progress: progressCallback, deferred: returnDeferred}; 
     if(finished){
       notify(listener);
