@@ -439,6 +439,7 @@ function composeAll(fail_on_error) {
 				function failOnce( err ) {
 					if( once ) {
 						once = false;
+						todo = 0;
 						cancel( i );
 						deferred.reject( err );
 					}
