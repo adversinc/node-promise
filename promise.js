@@ -437,23 +437,25 @@ function composeAll(fail_on_error) {
 				}
 
 				function failOnce( err ) {
-					if( once ) {
-						once = false;
-						todo = 0;
-						cancel( i );
+					if( cancel( i ) )
 						deferred.reject( err );
-					}
 				}
 			} );
 
 		return deferred.promise;
 
 		function cancel( except ) {
-			once = false;
-			array.forEach( function(p,i) {
-				if( i !== except && p && p.then && p.cancel )	
-					p.cancel();
-			} );
+			if( once ) {
+				todo = 0;
+				once = false;
+				array.forEach( function(p,i) {
+					if( i !== except && p && p.then && p.cancel )	
+						p.cancel();
+				} );
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }
