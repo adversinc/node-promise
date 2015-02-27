@@ -84,7 +84,7 @@ Another way that a consumer can use promises:
 
 More examples:
 
-    function printFirstAndList(itemsDeferred){
+    function printFirstAndLast(itemsDeferred){
       findFirst(itemsDeferred).then(util.puts);
       findLast(itemsDeferred).then(util.puts);
     }
