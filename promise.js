@@ -77,6 +77,13 @@ Promise.prototype.then = function(resolvedCallback, errorCallback, progressCallb
 };
 
 /**
+ * The usual .catch implementation in terms of this module
+ */
+Promise.prototype.catch = function(errorCallback){
+	return this.then(null, errorCallback);
+};
+
+/**
  * If an implementation of a promise supports a concurrency model that allows
  * execution to block until the promise is resolved, the wait function may be 
  * added. 
